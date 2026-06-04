@@ -440,6 +440,6 @@ The seed script creates:
 
 <div align="center">
 
-**Built with ❤️ by the TZW Ltd Engineering Team**
+**Built with ❤️ by Kenny.K**
 
 </div>
