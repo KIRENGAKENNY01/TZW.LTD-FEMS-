@@ -1,0 +1,57 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/client"
+}
+
+model Inspection {
+  id              String        @id @default(uuid())
+  extinguisherId  String
+  inspectorId     String?
+  scheduledBy     String
+  scheduledDate   DateTime      @db.Date
+  scheduledTime   String
+  status          InspStatus    @default(PENDING)
+  result          String?
+  notes           String?
+  completedAt     DateTime?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  maintenanceLog  MaintenanceLog?
+
+  @@index([inspectorId])
+  @@index([extinguisherId])
+  @@index([status])
+  @@index([scheduledDate])
+  @@map("inspections")
+}
+
+model MaintenanceLog {
+  id               String     @id @default(uuid())
+  extinguisherId   String
+  inspectorId      String
+  inspectionId     String     @unique
+  actionTaken      String
+  issuesIdentified String?
+  recommendations  String?
+  conditionsNoted  String?
+  maintenanceDate  DateTime   @db.Date
+  createdAt        DateTime   @default(now())
+  inspection       Inspection @relation(fields: [inspectionId], references: [id])
+
+  @@index([inspectorId])
+  @@index([extinguisherId])
+  @@map("maintenance_logs")
+}
+
+enum InspStatus {
+  REQUESTED
+  PENDING
+  COMPLETED
+  OVERDUE
+  CANCELLED
+}

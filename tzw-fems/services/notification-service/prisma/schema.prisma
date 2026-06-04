@@ -1,0 +1,31 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/client"
+}
+
+model Notification {
+  id          String   @id @default(uuid())
+  recipientId String
+  type        NotifType
+  title       String
+  body        String
+  isRead      Boolean  @default(false)
+  readAt      DateTime?
+  createdAt   DateTime @default(now())
+
+  @@map("notifications")
+}
+
+enum NotifType {
+  INSPECTION_SCHEDULED
+  INSPECTION_OVERDUE
+  MAINTENANCE_COMPLETED
+  EXPIRY_ALERT
+  PASSWORD_RESET
+  GENERAL
+}

@@ -1,0 +1,113 @@
+# ============================================================
+# TZW FEMS — Root .gitignore
+# Covers: frontend (Next.js) + backend microservices (Node.js / Prisma)
+# ============================================================
+
+# -------------------------------------------------------
+# Dependencies
+# -------------------------------------------------------
+node_modules/
+.pnp
+.pnp.js
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+
+# -------------------------------------------------------
+# Environment / Secrets  ← NEVER commit these
+# -------------------------------------------------------
+.env
+.env.local
+.env.development
+.env.development.local
+.env.test
+.env.test.local
+.env.production
+.env.production.local
+
+# -------------------------------------------------------
+# Next.js (frontend)
+# -------------------------------------------------------
+frontend/FEMS/.next/
+frontend/FEMS/out/
+frontend/FEMS/build/
+frontend/FEMS/.vercel/
+frontend/FEMS/tsconfig.tsbuildinfo
+
+# -------------------------------------------------------
+# Prisma generated clients (each microservice)
+# -------------------------------------------------------
+tzw-fems/services/auth-service/src/generated/
+tzw-fems/services/user-management-service/src/generated/
+tzw-fems/services/extinguisher-service/src/generated/
+tzw-fems/services/inspection-service/src/generated/
+tzw-fems/services/notification-service/src/generated/
+tzw-fems/services/report-service/src/generated/
+
+# -------------------------------------------------------
+# SQLite / local databases (if used)
+# -------------------------------------------------------
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+
+# -------------------------------------------------------
+# Logs
+# -------------------------------------------------------
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# -------------------------------------------------------
+# Build / dist outputs
+# -------------------------------------------------------
+dist/
+build/
+coverage/
+
+# -------------------------------------------------------
+# OS generated files
+# -------------------------------------------------------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# -------------------------------------------------------
+# IDE / Editor files
+# -------------------------------------------------------
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.cursor/
+.claude/
+
+# -------------------------------------------------------
+# Test / coverage
+# -------------------------------------------------------
+coverage/
+.nyc_output/
+
+# -------------------------------------------------------
+# Misc
+# -------------------------------------------------------
+*.xml
+!browserconfig.xml
+*.csv
+public/sitemap.xml
+public/feed.xml
+public/search.json

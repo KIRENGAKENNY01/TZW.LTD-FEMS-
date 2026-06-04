@@ -1,0 +1,37 @@
+{
+  "name": "tzw-fems",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "workspaces": [
+    "shared",
+    "api-gateway",
+    "services/auth-service",
+    "services/user-management-service",
+    "services/extinguisher-service",
+    "services/inspection-service",
+    "services/report-service",
+    "services/notification-service"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:gateway\" \"npm run dev:auth\" \"npm run dev:users\" \"npm run dev:ext\" \"npm run dev:insp\" \"npm run dev:report\" \"npm run dev:notif\"",
+    "dev:gateway": "npm run dev --workspace=api-gateway",
+    "dev:auth": "npm run dev --workspace=services/auth-service",
+    "dev:users": "npm run dev --workspace=services/user-management-service",
+    "dev:ext": "npm run dev --workspace=services/extinguisher-service",
+    "dev:insp": "npm run dev --workspace=services/inspection-service",
+    "dev:report": "npm run dev --workspace=services/report-service",
+    "dev:notif": "npm run dev --workspace=services/notification-service",
+    "migrate:auth": "npm run migrate --workspace=services/auth-service",
+    "migrate:users": "npm run migrate --workspace=services/user-management-service",
+    "migrate:ext": "npm run migrate --workspace=services/extinguisher-service",
+    "migrate:insp": "npm run migrate --workspace=services/inspection-service",
+    "migrate:report": "npm run migrate --workspace=services/report-service",
+    "migrate:notif": "npm run migrate --workspace=services/notification-service",
+    "migrate:all": "npm run migrate:auth && npm run migrate:users && npm run migrate:ext && npm run migrate:insp && npm run migrate:report && npm run migrate:notif",
+    "seed": "node scripts/seed.js"
+  },
+  "devDependencies": {
+    "concurrently": "^8.0.0"
+  }
+}

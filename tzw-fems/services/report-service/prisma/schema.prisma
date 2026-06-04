@@ -1,0 +1,60 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/client"
+}
+
+model ReportCache {
+  id           String     @id @default(uuid())
+  reportType   ReportType
+  period       Period
+  payload      Json
+  generatedAt  DateTime   @default(now())
+  expiresAt    DateTime
+  exportJobs   ExportJob[]
+
+  @@map("report_caches")
+}
+
+model ExportJob {
+  id            String      @id @default(uuid())
+  reportCacheId String
+  requestedBy   String
+  format        ExportFmt
+  status        JobStatus   @default(QUEUED)
+  fileUrl       String?
+  createdAt     DateTime    @default(now())
+  report        ReportCache @relation(fields: [reportCacheId], references: [id])
+
+  @@map("export_jobs")
+}
+
+enum ReportType {
+  INVENTORY
+  INSPECTION
+  COMPLIANCE
+  MAINTENANCE
+}
+
+enum Period {
+  DAILY
+  MONTHLY
+  YEARLY
+  CUSTOM
+}
+
+enum ExportFmt {
+  PDF
+  CSV
+}
+
+enum JobStatus {
+  QUEUED
+  PROCESSING
+  DONE
+  FAILED
+}

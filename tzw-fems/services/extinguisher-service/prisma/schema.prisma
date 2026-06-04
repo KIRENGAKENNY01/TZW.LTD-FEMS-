@@ -1,0 +1,92 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/client"
+}
+
+model FireExtinguisher {
+  id               String   @id @default(uuid())
+  serialNumber     String   @unique
+  location         String
+  building         String?
+  floor            String?
+  type             ExtType
+  size             ExtSize
+  installationDate DateTime @db.Date
+  expiryDate       DateTime @db.Date
+  status           ExtStatus @default(ACTIVE)
+  notes            String?
+  registeredBy     String
+  assignedUserId   String?
+  ownerUserId      String?
+  inspectorId      String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@index([assignedUserId])
+  @@index([ownerUserId])
+  @@index([inspectorId])
+  @@index([status])
+  @@index([expiryDate])
+  @@map("fire_extinguishers")
+}
+
+model ExtinguisherRequest {
+  id               String        @id @default(uuid())
+  userId           String
+  type             RequestType
+  status           RequestStatus @default(PENDING)
+  details          String?
+  adminComment     String?
+  building         String?
+  floor            String?
+  location         String?
+  size             ExtSize?
+  extinguisherType ExtType?
+  extinguisherId   String?       // For replacement requests
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+
+  @@index([userId])
+  @@index([status])
+  @@index([type])
+  @@map("extinguisher_requests")
+}
+
+enum RequestType {
+  NEW
+  REPLACEMENT
+  INSTALLATION
+}
+
+enum RequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum ExtType {
+  WATER
+  CO2
+  FOAM
+  DRY_CHEMICAL
+}
+
+enum ExtSize {
+  LB_1_5
+  LB_2_5
+  LB_5
+  LB_9
+  LB_12
+}
+
+enum ExtStatus {
+  ACTIVE
+  INACTIVE
+  EXPIRED
+  UNDER_MAINTENANCE
+}
