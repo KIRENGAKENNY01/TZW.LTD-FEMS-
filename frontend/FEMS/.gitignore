@@ -1,0 +1,62 @@
+# ============================================================
+# TZW FEMS Frontend — .gitignore (Next.js)
+# ============================================================
+
+# dependencies
+node_modules/
+.pnp
+.pnp.js
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+
+# Next.js build output
+.next/
+out/
+build/
+.vercel/
+
+# TypeScript build info
+tsconfig.tsbuildinfo
+
+# Environment / secrets
+.env
+.env.local
+.env.development
+.env.development.local
+.env.test
+.env.test.local
+.env.production
+.env.production.local
+
+# Testing
+coverage/
+.nyc_output/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS generated
+.DS_Store
+.DS_Store?
+Thumbs.db
+desktop.ini
+
+# IDE / Editor
+.vscode/
+.idea/
+.cursor/
+.claude/
+*.sw?
+
+# Misc
+*.xml
+!browserconfig.xml
+public/sitemap.xml
+public/feed.xml
+public/search.json
